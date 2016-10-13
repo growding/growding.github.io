@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://itdais.com/"/>
-  <updated>2016-10-12T14:35:34.687Z</updated>
+  <updated>2016-10-13T02:05:46.051Z</updated>
   <id>http://itdais.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://itdais.com/2016/10/11/BottomSheet%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://itdais.com/2016/10/11/BottomSheet使用详解/</id>
-    <published>2016-10-11T07:10:17.789Z</published>
-    <updated>2016-10-12T14:35:34.687Z</updated>
+    <title>BottomSheet使用详解</title>
+    <link href="http://itdais.com/2016/10/12/BottomSheet%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://itdais.com/2016/10/12/BottomSheet使用详解/</id>
+    <published>2016-10-11T16:00:00.000Z</published>
+    <updated>2016-10-13T02:05:46.051Z</updated>
     
     <content type="html">&lt;h3 id=&quot;BottomSheet使用详解&quot;&gt;&lt;a href=&quot;#BottomSheet使用详解&quot; class=&quot;headerlink&quot; title=&quot;BottomSheet使用详解&quot;&gt;&lt;/a&gt;BottomSheet使用详解&lt;/h3&gt;&lt;p&gt;Android Support Library 23.2里的 Design Support Library新加了一个Bottom Sheets控件,Bottom Sheets顾名思义就是底部操作控件，用于在屏幕底部创建一个可滑动关闭的视图，可以替代对话框和菜单。其中包含BottomSheets、BottomSheetDialog和BottomSheetDialogFragment三种可以使用。&lt;/p&gt;
 &lt;p&gt;BottomSheets常见的效果如图,并且在国内的知乎、百度地图上也是可以看到效果。&lt;/p&gt;
@@ -71,6 +71,10 @@
     
     </summary>
     
+    
+      <category term="Android" scheme="http://itdais.com/tags/Android/"/>
+    
+      <category term="Gradle" scheme="http://itdais.com/tags/Gradle/"/>
     
   </entry>
   
