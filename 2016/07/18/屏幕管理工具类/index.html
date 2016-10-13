@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>屏幕管理工具类 | 丿歌吟有梦 | 不要让任何事成为你不学习的理由!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="Android,屏幕,工具类">
+  <meta name="description" content="提供了dp互转px,sp互转px,获取屏幕宽高,获取状态栏高度、toolbar高度、底部虚拟菜单高度等等。
+
+dp(dip): device independent pixels(设备独立像素).不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。
+使用dp和sp，系统会根据屏幕密度的变化自动进行转换。如果设置表示长度、高度等属性时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="屏幕管理工具类">
+<meta property="og:url" content="http://itdais.com/2016/07/18/屏幕管理工具类/index.html">
+<meta property="og:site_name" content="丿歌吟有梦">
+<meta property="og:description" content="提供了dp互转px,sp互转px,获取屏幕宽高,获取状态栏高度、toolbar高度、底部虚拟菜单高度等等。
+
+dp(dip): device independent pixels(设备独立像素).不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。
+使用dp和sp，系统会根据屏幕密度的变化自动进行转换。如果设置表示长度、高度等属性时">
+<meta property="og:updated_time" content="2016-08-02T13:21:37.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="屏幕管理工具类">
+<meta name="twitter:description" content="提供了dp互转px,sp互转px,获取屏幕宽高,获取状态栏高度、toolbar高度、底部虚拟菜单高度等等。
+
+dp(dip): device independent pixels(设备独立像素).不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。
+使用dp和sp，系统会根据屏幕密度的变化自动进行转换。如果设置表示长度、高度等属性时">
+  
+    <link rel="alternative" href="/atom.xml" title="丿歌吟有梦" type="application/atom+xml">
+  
+  <meta name="summary" content="&lt;p&gt;提供了dp互转px,sp互转px,获取屏幕宽高,获取状态栏高度、toolbar高度、底部虚拟菜单高度等等。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dp(dip): device independent pixels(设备独立像素).不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。&lt;/p&gt;
+&lt;p&gt;使用dp和sp，系统会根据屏幕密度的变化自动进行转换。&lt;br&gt;如果设置表示长度、高度等属性时可以使用dp。但如果设置字体，需要使用sp。dp是与密度无关，sp除了与密度无关外，还与scale无关。&lt;/p&gt;
+&lt;p&gt; px: pixels(像素). 不同设备显示效果相同，一般我们HVGA代表320x480像素，这个用的比较多。&lt;/p&gt;
+&lt;p&gt; sp: scaled pixels(放大像素). 主要用于字体显示best for textsize。&lt;/p&gt;
+&lt;/blockquote&gt;">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">丁军伟</h5>
+        <a href="mailto:ding_jw1992@163.com" title="ding_jw1992@163.com" class="mail">ding_jw1992@163.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav flex-col">
+    
+        <li class="waves-block waves-effect">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            博客
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            热门标签
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="https://github.com/itdais" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>丿歌吟有梦 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">屏幕管理工具类</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">屏幕管理工具类</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2016-07-18T13:15:20.000Z" itemprop="datePublished" class="page-time">
+  2016-07-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/archives/">archives</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-屏幕管理工具类" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/屏幕/">屏幕</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具类/">工具类</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <p>提供了dp互转px,sp互转px,获取屏幕宽高,获取状态栏高度、toolbar高度、底部虚拟菜单高度等等。</p>
+<blockquote>
+<p>dp(dip): device independent pixels(设备独立像素).不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。</p>
+<p>使用dp和sp，系统会根据屏幕密度的变化自动进行转换。<br>如果设置表示长度、高度等属性时可以使用dp。但如果设置字体，需要使用sp。dp是与密度无关，sp除了与密度无关外，还与scale无关。</p>
+<p> px: pixels(像素). 不同设备显示效果相同，一般我们HVGA代表320x480像素，这个用的比较多。</p>
+<p> sp: scaled pixels(放大像素). 主要用于字体显示best for textsize。</p>
+</blockquote>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div></pre></td><td class="code"><pre><div class="line">import android.app.Activity;</div><div class="line">import android.content.Context;</div><div class="line">import android.content.res.Configuration;</div><div class="line">import android.content.res.Resources;</div><div class="line">import android.content.res.TypedArray;</div><div class="line">import android.graphics.Bitmap;</div><div class="line">import android.graphics.Rect;</div><div class="line">import android.util.DisplayMetrics;</div><div class="line">import android.util.Log;</div><div class="line">import android.util.TypedValue;</div><div class="line">import android.view.View;</div><div class="line">import android.view.Window;</div><div class="line"></div><div class="line">public class DensityUtils &#123;</div><div class="line"></div><div class="line">    private static final float DOT_FIVE = 0.5f;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * dip to px</div><div class="line">     *</div><div class="line">     * @param context</div><div class="line">     * @param dip</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static int dip2px(Context context, float dip) &#123;</div><div class="line"></div><div class="line">        float density = getDensity(context);</div><div class="line">        return (int) (dip * density + DensityUtils.DOT_FIVE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * px to dip</div><div class="line">     *</div><div class="line">     * @param context</div><div class="line">     * @param px</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static int px2dip(Context context, float px) &#123;</div><div class="line">        float density = getDensity(context);</div><div class="line">        return (int) (px / density + DOT_FIVE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 将px值转换为sp值，保证文字大小不变</div><div class="line">     *</div><div class="line">     * @param pxValue</div><div class="line">     * @param pxValue</div><div class="line">     *            （DisplayMetrics类中属性scaledDensity）</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static int px2sp(Context context, float pxValue) &#123;</div><div class="line">        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;</div><div class="line">        return (int) (pxValue / fontScale + 0.5f);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 将sp值转换为px值，保证文字大小不变</div><div class="line">     *</div><div class="line">     * @param spValue</div><div class="line">     * @param spValue</div><div class="line">     *            （DisplayMetrics类中属性scaledDensity）</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static int sp2px(Context context, float spValue) &#123;</div><div class="line">        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;</div><div class="line">        return (int) (spValue * fontScale + 0.5f);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private static DisplayMetrics sDisplayMetrics;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * get screen width</div><div class="line">     *</div><div class="line">     * @param context</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static int getDisplayWidth(Context context) &#123;</div><div class="line">        initDisplayMetrics(context);</div><div class="line">        return sDisplayMetrics.widthPixels;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * get screen height</div><div class="line">     *</div><div class="line">     * @param context</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static int getDisplayHeight(Context context) &#123;</div><div class="line">        initDisplayMetrics(context);</div><div class="line">        return sDisplayMetrics.heightPixels;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * get screen density</div><div class="line">     *</div><div class="line">     * @param context</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static float getDensity(Context context) &#123;</div><div class="line">        initDisplayMetrics(context);</div><div class="line">        return sDisplayMetrics.density;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    /**</div><div class="line">     * get screen density dpi</div><div class="line">     *</div><div class="line">     * @param context</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static int getDensityDpi(Context context) &#123;</div><div class="line">        initDisplayMetrics(context);</div><div class="line">        return sDisplayMetrics.densityDpi;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * init display metrics</div><div class="line">     *</div><div class="line">     * @param context</div><div class="line">     */</div><div class="line">    private static synchronized void initDisplayMetrics(Context context) &#123;</div><div class="line">        sDisplayMetrics = context.getResources().getDisplayMetrics();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * is landscape</div><div class="line">     *</div><div class="line">     * @param context</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static boolean isLandscape(Context context) &#123;</div><div class="line">        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * is portrait</div><div class="line">     *</div><div class="line">     * @param context</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static boolean isPortrait(Context context) &#123;</div><div class="line">        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static int getActvieHeight(Activity activity)&#123;</div><div class="line">        Dimension dimen = new Dimension();</div><div class="line">        // 用户绘制区域</div><div class="line">        Rect outRect = new Rect();</div><div class="line">        activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getDrawingRect(outRect);</div><div class="line">        dimen.mWidth = outRect.width() ;</div><div class="line">        dimen.mHeight = outRect.height();</div><div class="line">        // end</div><div class="line">        return dimen.mHeight;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 获得状态栏的高度</div><div class="line">     *</div><div class="line">     * @param activity</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static int getStatusHeight(Activity activity)</div><div class="line">    &#123;</div><div class="line">//        Rect frame = new Rect();</div><div class="line">//        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);</div><div class="line">//        int statusBarHeight = frame.top;</div><div class="line">//        Log.d(&quot;111&quot;,&quot;statusBarHeight&quot;+statusBarHeight);</div><div class="line">        int statusHeight = -1;</div><div class="line">        try</div><div class="line">        &#123;</div><div class="line">            Class&lt;?&gt; clazz = Class.forName(&quot;com.android.internal.R$dimen&quot;);</div><div class="line">            Object object = clazz.newInstance();</div><div class="line">            int height = Integer.parseInt(clazz.getField(&quot;status_bar_height&quot;)</div><div class="line">                    .get(object).toString());</div><div class="line">            statusHeight = activity.getResources().getDimensionPixelSize(height);</div><div class="line">        &#125; catch (Exception e)</div><div class="line">        &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return statusHeight;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public int getNavigationBarHeight(Activity activity) &#123;</div><div class="line">        Resources resources = activity.getResources();</div><div class="line">        int resourceId = resources.getIdentifier(&quot;navigation_bar_height&quot;,&quot;dimen&quot;, &quot;android&quot;);</div><div class="line">        int height = resources.getDimensionPixelSize(resourceId);</div><div class="line">        Log.v(&quot;dbw&quot;, &quot;Navi height:&quot; + height);</div><div class="line">        return height;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static int getActionBarHeight(Context context) &#123;</div><div class="line">        TypedValue tv = new TypedValue();</div><div class="line">        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) &#123;</div><div class="line">            int actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, context.getResources().getDisplayMetrics());</div><div class="line">            return actionBarHeight;</div><div class="line">        &#125;else&#123;</div><div class="line">            return 0;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    /**</div><div class="line">     * get toolbar height</div><div class="line">     * @param context</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static int getToolbarHeight(Context context) &#123;</div><div class="line">        final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(</div><div class="line">                new int[]&#123;android.R.attr.actionBarSize&#125;);</div><div class="line">        int toolbarHeight = (int) styledAttributes.getDimension(0, 0);</div><div class="line">        styledAttributes.recycle();</div><div class="line"></div><div class="line">        return toolbarHeight;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private int getTitleHeight(Activity activity) &#123;</div><div class="line">        int contentTop = activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();</div><div class="line">        //statusBarHeight是上面状态栏的高度</div><div class="line">        int titleBarHeight = contentTop - getStatusHeight(activity);</div><div class="line">        return titleBarHeight;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private int getActionBarSizeHeight(Activity activity) &#123;</div><div class="line">        return activity.getActionBar().getHeight();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static class Dimension &#123;</div><div class="line">        public int mWidth ;</div><div class="line">        public int mHeight ;</div><div class="line">        public Dimension()&#123;&#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 获取当前屏幕截图，包含状态栏</div><div class="line">     *</div><div class="line">     * @param activity</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static Bitmap snapShotWithStatusBar(Activity activity)</div><div class="line">    &#123;</div><div class="line">        View view = activity.getWindow().getDecorView();</div><div class="line">        view.setDrawingCacheEnabled(true);</div><div class="line">        view.buildDrawingCache();</div><div class="line">        Bitmap bmp = view.getDrawingCache();</div><div class="line">        int width = getDisplayWidth(activity);</div><div class="line">        int height = getDisplayHeight(activity);</div><div class="line">        Bitmap bp = null;</div><div class="line">        bp = Bitmap.createBitmap(bmp, 0, 0, width, height);</div><div class="line">        view.destroyDrawingCache();</div><div class="line">        return bp;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 获取当前屏幕截图，不包含状态栏</div><div class="line">     *</div><div class="line">     * @param activity</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public static Bitmap snapShotWithoutStatusBar(Activity activity)</div><div class="line">    &#123;</div><div class="line">        View view = activity.getWindow().getDecorView();</div><div class="line">        view.setDrawingCacheEnabled(true);</div><div class="line">        view.buildDrawingCache();</div><div class="line">        Bitmap bmp = view.getDrawingCache();</div><div class="line">        Rect frame = new Rect();</div><div class="line">        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);</div><div class="line">        int statusBarHeight = frame.top;</div><div class="line"></div><div class="line">        int width = getDisplayWidth(activity);</div><div class="line">        int height = getDisplayHeight(activity);</div><div class="line">        Bitmap bp = null;</div><div class="line">        bp = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height</div><div class="line">                - statusBarHeight);</div><div class="line">        view.destroyDrawingCache();</div><div class="line">        return bp;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="http://itdais.com/2016/07/18/屏幕管理工具类/" target="_blank" rel="external">http://itdais.com/2016/07/18/屏幕管理工具类/</a>
+                </p>
+                <footer><cite><a href="http://itdais.com">@丿歌吟有梦</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2016/07/18/Android ADB端口被占用/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Android ADB端口被占用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2016/07/06/通用验证工具类/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">通用验证工具类</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="屏幕管理工具类" data-title="屏幕管理工具类" data-url="http://itdais.com/2016/07/18/屏幕管理工具类/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"6326844131456845000"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+        </div>
+    </div>
+</article>
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "屏幕管理工具类",
+    pic: "/img/logo.jpg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "http://itdais.com/2016/07/18/屏幕管理工具类/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+<script src="http://s95.cnzz.com/z_stat.php?id=1260217213&web_id=1260217213"></script>
+
+
+
+
+
+</body>
+</html>

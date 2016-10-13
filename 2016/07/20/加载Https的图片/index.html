@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>加载Https的图片 | 丿歌吟有梦 | 不要让任何事成为你不学习的理由!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="Android,图片加载,HTTPS">
+  <meta name="description" content="本文介绍的是如何在项目中加载已Https为开头的图片，图片加载框架是Glide和UIL,当加载图片时候禁用掉所有的 SSL 证书检查。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="加载Https的图片">
+<meta property="og:url" content="http://itdais.com/2016/07/20/加载Https的图片/index.html">
+<meta property="og:site_name" content="丿歌吟有梦">
+<meta property="og:description" content="本文介绍的是如何在项目中加载已Https为开头的图片，图片加载框架是Glide和UIL,当加载图片时候禁用掉所有的 SSL 证书检查。">
+<meta property="og:updated_time" content="2016-07-28T13:04:00.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="加载Https的图片">
+<meta name="twitter:description" content="本文介绍的是如何在项目中加载已Https为开头的图片，图片加载框架是Glide和UIL,当加载图片时候禁用掉所有的 SSL 证书检查。">
+  
+    <link rel="alternative" href="/atom.xml" title="丿歌吟有梦" type="application/atom+xml">
+  
+  <meta name="summary" content="&lt;p&gt;本文介绍的是如何在项目中加载已Https为开头的图片，图片加载框架是Glide和UIL,当加载图片时候禁用掉所有的 SSL 证书检查。&lt;/p&gt;">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">丁军伟</h5>
+        <a href="mailto:ding_jw1992@163.com" title="ding_jw1992@163.com" class="mail">ding_jw1992@163.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav flex-col">
+    
+        <li class="waves-block waves-effect">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            博客
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            热门标签
+          </a>
+        </li>
+    
+        <li class="waves-block waves-effect">
+          <a href="https://github.com/itdais" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>丿歌吟有梦 &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">加载Https的图片</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">加载Https的图片</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2016-07-20T13:25:20.000Z" itemprop="datePublished" class="page-time">
+  2016-07-20
+</time>
+
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-加载Https的图片" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图片加载/">图片加载</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#UIL加载图片"><span class="post-toc-text">UIL加载图片</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Glide加载图片"><span class="post-toc-text">Glide加载图片</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引用"><span class="post-toc-text">引用</span></a></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本文介绍的是如何在项目中加载已Https为开头的图片，图片加载框架是Glide和UIL,当加载图片时候禁用掉所有的 SSL 证书检查。</p>
+<a id="more"></a>
+<h3 id="UIL加载图片"><a href="#UIL加载图片" class="headerlink" title="UIL加载图片"></a>UIL加载图片</h3><blockquote>
+<p>ImageLoader我们需要自己写一个图片加载替换掉原有的imageDownloader,在application中配置就可以了</p>
+</blockquote>
+<ol>
+<li><p>在Application中初始化ImageLoader</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">super</span>.onCreate();</div><div class="line">        <span class="comment">//设置OKHttp 支持https请求</span></div><div class="line">        OkHttpUtils.getInstance().setCertificates();</div><div class="line"></div><div class="line">        initImageLoader();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initImageLoader</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        ImageLoaderConfiguration config = <span class="keyword">new</span> ImageLoaderConfiguration</div><div class="line">                .Builder(getApplicationContext())</div><div class="line">                .threadPriority(Thread.NORM_PRIORITY - <span class="number">2</span>)</div><div class="line">                .denyCacheImageMultipleSizesInMemory()</div><div class="line">                .diskCacheFileNameGenerator(<span class="keyword">new</span> Md5FileNameGenerator())</div><div class="line">                <span class="comment">//替换允许Https的图片加载</span></div><div class="line">                .imageDownloader(<span class="keyword">new</span> AuthImageDownloader(<span class="keyword">this</span>))</div><div class="line">                .tasksProcessingOrder(QueueProcessingType.LIFO).build();</div><div class="line">        ImageLoader.getInstance().init(config);</div><div class="line">    &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>AuthImageDownloader代码</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> com.nostra13.universalimageloader.core.download.BaseImageDownloader;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.net.HttpURLConnection;</div><div class="line"><span class="keyword">import</span> java.net.MalformedURLException;</div><div class="line"><span class="keyword">import</span> java.net.URL;</div><div class="line"><span class="keyword">import</span> java.security.KeyManagementException;</div><div class="line"><span class="keyword">import</span> java.security.NoSuchAlgorithmException;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.net.ssl.HostnameVerifier;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.HttpsURLConnection;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLContext;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLSession;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLSocketFactory;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * HTTPS的图片加载</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthImageDownloader</span> <span class="keyword">extends</span> <span class="title">BaseImageDownloader</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> SSLSocketFactory mSSLSocketFactory;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AuthImageDownloader</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context);</div><div class="line">        SSLContext sslContext = sslContextForTrustedCertificates();</div><div class="line">        mSSLSocketFactory = sslContext.getSocketFactory();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AuthImageDownloader</span><span class="params">(Context context, <span class="keyword">int</span> connectTimeout, <span class="keyword">int</span> readTimeout)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, connectTimeout, readTimeout);</div><div class="line">        SSLContext sslContext = sslContextForTrustedCertificates();</div><div class="line">        mSSLSocketFactory = sslContext.getSocketFactory();</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> InputStream <span class="title">getStreamFromNetwork</span><span class="params">(String imageUri, Object extra)</span> <span class="keyword">throws</span> IOException</span></div><div class="line">    &#123;</div><div class="line">        URL url = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            url = <span class="keyword">new</span> URL(imageUri);</div><div class="line">        &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</div><div class="line">        &#125;</div><div class="line">        HttpURLConnection conn = (HttpURLConnection) url.openConnection();</div><div class="line">        conn.setConnectTimeout(connectTimeout);</div><div class="line">        conn.setReadTimeout(readTimeout);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (conn <span class="keyword">instanceof</span> HttpsURLConnection) &#123;</div><div class="line">            ((HttpsURLConnection)conn).setSSLSocketFactory(mSSLSocketFactory);</div><div class="line">            ((HttpsURLConnection)conn).setHostnameVerifier((DO_NOT_VERIFY));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BufferedInputStream(conn.getInputStream(), BUFFER_SIZE);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// always verify the host - dont check for certificate</span></div><div class="line">    <span class="keyword">final</span> HostnameVerifier DO_NOT_VERIFY = <span class="keyword">new</span> HostnameVerifier() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String hostname, SSLSession session)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> SSLContext <span class="title">sslContextForTrustedCertificates</span><span class="params">()</span> </span>&#123;</div><div class="line">        javax.net.ssl.TrustManager[] trustAllCerts = <span class="keyword">new</span> javax.net.ssl.TrustManager[<span class="number">1</span>];</div><div class="line">        javax.net.ssl.TrustManager tm = <span class="keyword">new</span> miTM();</div><div class="line">        trustAllCerts[<span class="number">0</span>] = tm;</div><div class="line">        SSLContext sc = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            sc = SSLContext.getInstance(<span class="string">"SSL"</span>);</div><div class="line">            sc.init(<span class="keyword">null</span>, trustAllCerts, <span class="keyword">null</span>);</div><div class="line">            <span class="comment">//javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());</span></div><div class="line">        &#125; <span class="keyword">catch</span> (NoSuchAlgorithmException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">catch</span> (KeyManagementException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">return</span> sc;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">miTM</span> <span class="keyword">implements</span> <span class="title">javax</span>.<span class="title">net</span>.<span class="title">ssl</span>.<span class="title">TrustManager</span>, <span class="title">javax</span>.<span class="title">net</span>.<span class="title">ssl</span>.<span class="title">X509TrustManager</span> </span>&#123;</div><div class="line">        <span class="keyword">public</span> java.security.cert.X509Certificate[] getAcceptedIssuers() &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isServerTrusted</span><span class="params">(</span></span></div><div class="line">                java.security.cert.X509Certificate[] certs) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isClientTrusted</span><span class="params">(</span></span></div><div class="line">                java.security.cert.X509Certificate[] certs) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkServerTrusted</span><span class="params">(</span></span></div><div class="line">                java.security.cert.X509Certificate[] certs, String authType)</div><div class="line">                <span class="keyword">throws</span> java.security.cert.CertificateException &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkClientTrusted</span><span class="params">(</span></span></div><div class="line">                java.security.cert.X509Certificate[] certs, String authType)</div><div class="line">                <span class="keyword">throws</span> java.security.cert.CertificateException &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Glide加载图片"><a href="#Glide加载图片" class="headerlink" title="Glide加载图片"></a>Glide加载图片</h3><p>Glide加载Https需要自定义Module,并且要整合Okhttp,让okhttp禁用掉所有的 SSL 证书检查。</p>
+<ol>
+<li>gradle引用</li>
+</ol>
+<blockquote>
+<p>引用中介绍的比较麻烦,Glide已经提供了Module给我们使用。</p>
+</blockquote>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.okhttp3:okhttp:3.3.1'</span></div><div class="line"><span class="keyword">compile</span> <span class="string">'com.github.bumptech.glide:glide:3.7.0'</span></div><div class="line"><span class="comment">/*提供的Module*/</span></div><div class="line"><span class="keyword">compile</span> <span class="string">'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'</span></div></pre></td></tr></table></figure>
+<ol>
+<li><p>application中初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//让Glide能用HTTPS</span></div><div class="line">Glide.get(<span class="keyword">this</span>).register(GlideUrl.class, InputStream.class, <span class="keyword">new</span> OkHttpUrlLoader.Factory(RetrofitUtils.getOkHttpClient()));</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置证书<br>这个不是必须的,当你没有证书的时候,就不需要获取,如果有就拿到InputStream,传到下面的getOkHttpClient()的方法中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    InputStream input = getAssets().open(<span class="string">"server.cer"</span>);</div><div class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置OkHttp允许Https</p>
+<p>获取OkHttpClien</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获取OkHttpClient</div><div class="line"> * 设置允许HTTPS</div><div class="line"> * */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> OkHttpClient <span class="title">getOkHttpClient</span><span class="params">(InputStream... certificates)</span></span></div><div class="line">&#123;</div><div class="line">    SSLSocketFactory sslSocketFactory = HttpsUtils.getSslSocketFactory(certificates, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">    OkHttpClient.Builder builder = <span class="keyword">new</span> OkHttpClient().newBuilder();</div><div class="line">    builder = builder.sslSocketFactory(sslSocketFactory);</div><div class="line">    builder.hostnameVerifier(<span class="keyword">new</span> HostnameVerifier() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String hostname, SSLSession session)</span></span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> builder.build();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>HttpsUtils中可以传递证书进入,如果没有证书就传null</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.security.KeyManagementException;</div><div class="line"><span class="keyword">import</span> java.security.KeyStore;</div><div class="line"><span class="keyword">import</span> java.security.KeyStoreException;</div><div class="line"><span class="keyword">import</span> java.security.NoSuchAlgorithmException;</div><div class="line"><span class="keyword">import</span> java.security.SecureRandom;</div><div class="line"><span class="keyword">import</span> java.security.UnrecoverableKeyException;</div><div class="line"><span class="keyword">import</span> java.security.cert.CertificateException;</div><div class="line"><span class="keyword">import</span> java.security.cert.CertificateFactory;</div><div class="line"><span class="keyword">import</span> java.security.cert.X509Certificate;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.net.ssl.HostnameVerifier;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.KeyManager;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.KeyManagerFactory;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLContext;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLSession;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.SSLSocketFactory;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.TrustManager;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.TrustManagerFactory;</div><div class="line"><span class="keyword">import</span> javax.net.ssl.X509TrustManager;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 设置允许Https</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpsUtils</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SSLSocketFactory <span class="title">getSslSocketFactory</span><span class="params">(InputStream[] certificates, InputStream bksFile, String password)</span></span>&#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            TrustManager[] trustManagers = prepareTrustManager(certificates);</div><div class="line">            KeyManager[] keyManagers = prepareKeyManager(bksFile, password);</div><div class="line">            SSLContext sslContext = SSLContext.getInstance(<span class="string">"TLS"</span>);</div><div class="line">            TrustManager trustManager = <span class="keyword">null</span>;</div><div class="line">            <span class="keyword">if</span> (trustManagers != <span class="keyword">null</span>)&#123;</div><div class="line">                trustManager = <span class="keyword">new</span> MyTrustManager(chooseTrustManager(trustManagers));</div><div class="line">            &#125; <span class="keyword">else</span>&#123;</div><div class="line">                trustManager = <span class="keyword">new</span> UnSafeTrustManager();</div><div class="line">            &#125;</div><div class="line">            sslContext.init(keyManagers, <span class="keyword">new</span> TrustManager[]&#123;trustManager&#125;, <span class="keyword">new</span> SecureRandom());</div><div class="line">            <span class="keyword">return</span> sslContext.getSocketFactory();</div><div class="line">        &#125; <span class="keyword">catch</span> (NoSuchAlgorithmException e)&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(e);</div><div class="line">        &#125; <span class="keyword">catch</span> (KeyManagementException e)&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(e);</div><div class="line">        &#125; <span class="keyword">catch</span> (KeyStoreException e)&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">UnSafeHostnameVerifier</span> <span class="keyword">implements</span> <span class="title">HostnameVerifier</span></span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String hostname, SSLSession session)</span></span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">UnSafeTrustManager</span> <span class="keyword">implements</span> <span class="title">X509TrustManager</span></span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkClientTrusted</span><span class="params">(X509Certificate[] chain, String authType)</span><span class="keyword">throws</span> CertificateException</span>&#123;&#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkServerTrusted</span><span class="params">(X509Certificate[] chain, String authType)</span><span class="keyword">throws</span> CertificateException</span>&#123;&#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="keyword">public</span> X509Certificate[] getAcceptedIssuers()&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> X509Certificate[]&#123;&#125;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> TrustManager[] prepareTrustManager(InputStream... certificates)&#123;</div><div class="line">        <span class="keyword">if</span> (certificates == <span class="keyword">null</span> || certificates.length &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            CertificateFactory certificateFactory = CertificateFactory.getInstance(<span class="string">"X.509"</span>);</div><div class="line">            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());</div><div class="line">            keyStore.load(<span class="keyword">null</span>);</div><div class="line">            <span class="keyword">int</span> index = <span class="number">0</span>;</div><div class="line">            <span class="keyword">for</span> (InputStream certificate : certificates)&#123;</div><div class="line">                String certificateAlias = Integer.toString(index++);</div><div class="line">                keyStore.setCertificateEntry(certificateAlias, certificateFactory.generateCertificate(certificate));</div><div class="line">                <span class="keyword">try</span>&#123;</div><div class="line">                    <span class="keyword">if</span> (certificate != <span class="keyword">null</span>)</div><div class="line">                        certificate.close();</div><div class="line">                &#125; <span class="keyword">catch</span> (IOException e)&#123;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            TrustManagerFactory trustManagerFactory = <span class="keyword">null</span>;</div><div class="line">            trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());</div><div class="line">            trustManagerFactory.init(keyStore);</div><div class="line">            TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();</div><div class="line">            <span class="keyword">return</span> trustManagers;</div><div class="line">        &#125; <span class="keyword">catch</span> (NoSuchAlgorithmException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (CertificateException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (KeyStoreException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> KeyManager[] prepareKeyManager(InputStream bksFile, String password)&#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            <span class="keyword">if</span> (bksFile == <span class="keyword">null</span> || password == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">            KeyStore clientKeyStore = KeyStore.getInstance(<span class="string">"BKS"</span>);</div><div class="line">            clientKeyStore.load(bksFile, password.toCharArray());</div><div class="line">            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());</div><div class="line">            keyManagerFactory.init(clientKeyStore, password.toCharArray());</div><div class="line">            <span class="keyword">return</span> keyManagerFactory.getKeyManagers();</div><div class="line">        &#125; <span class="keyword">catch</span> (KeyStoreException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (NoSuchAlgorithmException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (UnrecoverableKeyException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (CertificateException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> X509TrustManager <span class="title">chooseTrustManager</span><span class="params">(TrustManager[] trustManagers)</span></span>&#123;</div><div class="line">        <span class="keyword">for</span> (TrustManager trustManager : trustManagers)&#123;</div><div class="line">            <span class="keyword">if</span> (trustManager <span class="keyword">instanceof</span> X509TrustManager)&#123;</div><div class="line">                <span class="keyword">return</span> (X509TrustManager) trustManager;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTrustManager</span> <span class="keyword">implements</span> <span class="title">X509TrustManager</span></span>&#123;</div><div class="line">        <span class="keyword">private</span> X509TrustManager defaultTrustManager;</div><div class="line">        <span class="keyword">private</span> X509TrustManager localTrustManager;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">MyTrustManager</span><span class="params">(X509TrustManager localTrustManager)</span> <span class="keyword">throws</span> NoSuchAlgorithmException, KeyStoreException</span>&#123;</div><div class="line">            TrustManagerFactory var4 = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());</div><div class="line">            var4.init((KeyStore) <span class="keyword">null</span>);</div><div class="line">            defaultTrustManager = chooseTrustManager(var4.getTrustManagers());</div><div class="line">            <span class="keyword">this</span>.localTrustManager = localTrustManager;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkClientTrusted</span><span class="params">(X509Certificate[] chain, String authType)</span> <span class="keyword">throws</span> CertificateException</span>&#123;&#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkServerTrusted</span><span class="params">(X509Certificate[] chain, String authType)</span> <span class="keyword">throws</span> CertificateException</span>&#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                defaultTrustManager.checkServerTrusted(chain, authType);</div><div class="line">            &#125; <span class="keyword">catch</span> (CertificateException ce)&#123;</div><div class="line">                localTrustManager.checkServerTrusted(chain, authType);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="keyword">public</span> X509Certificate[] getAcceptedIssuers()&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> X509Certificate[<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所有代码引入后就可以,Glide就可以加载Https开头的图片了。</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><blockquote>
+<p><a href="http://blog.csdn.net/wk843620202/article/details/50979790" target="_blank" rel="external">完美解决imageloader加载https图片</a><br><a href="https://futurestud.io/blog/glide-module-example-accepting-self-signed-https-certificates" target="_blank" rel="external">Glide加载Https</a><br><a href="http://www.open-open.com/lib/view/open1456706981984.html" target="_blank" rel="external">Glide加载Https中文翻译</a></p>
+</blockquote>
+
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="http://itdais.com/2016/07/20/加载Https的图片/" target="_blank" rel="external">http://itdais.com/2016/07/20/加载Https的图片/</a>
+                </p>
+                <footer><cite><a href="http://itdais.com">@丿歌吟有梦</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2016/07/28/EditText限制输入小数点后两位/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">EditText限制输入小数点后两位</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2016/07/18/Android ADB端口被占用/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Android ADB端口被占用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="加载Https的图片" data-title="加载Https的图片" data-url="http://itdais.com/2016/07/20/加载Https的图片/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"6326844131456845000"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+        </div>
+    </div>
+</article>
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "加载Https的图片",
+    pic: "/img/logo.jpg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "http://itdais.com/2016/07/20/加载Https的图片/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+<script src="http://s95.cnzz.com/z_stat.php?id=1260217213&web_id=1260217213"></script>
+
+
+
+
+
+</body>
+</html>
