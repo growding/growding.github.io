@@ -75,11 +75,11 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>Android Studio运行时候报packageOfficialDebug错误</title>
     <link href="http://itdais.com/2016/10/11/Android%20Studio%E8%BF%90%E8%A1%8C%E6%97%B6%E5%80%99%E6%8A%A5packageOfficialDebug%E9%94%99%E8%AF%AF/"/>
     <id>http://itdais.com/2016/10/11/Android Studio运行时候报packageOfficialDebug错误/</id>
-    <published>2016-10-11T06:43:36.542Z</published>
-    <updated>2016-10-11T07:08:07.350Z</updated>
+    <published>2016-10-10T16:00:00.000Z</published>
+    <updated>2016-10-13T02:00:31.032Z</updated>
     
     <content type="html">&lt;h3 id=&quot;Android-Studio运行时候报packageOfficialDebug错误&quot;&gt;&lt;a href=&quot;#Android-Studio运行时候报packageOfficialDebug错误&quot; class=&quot;headerlink&quot; title=&quot;Android Studio运行时候报packageOfficialDebug错误&quot;&gt;&lt;/a&gt;Android Studio运行时候报packageOfficialDebug错误&lt;/h3&gt;&lt;p&gt;报错信息为&lt;/p&gt;
 &lt;blockquote&gt;
@@ -101,6 +101,10 @@
     
     </summary>
     
+    
+      <category term="Android" scheme="http://itdais.com/tags/Android/"/>
+    
+      <category term="Gradle" scheme="http://itdais.com/tags/Gradle/"/>
     
   </entry>
   
@@ -272,11 +276,11 @@
     
       <category term="Android" scheme="http://itdais.com/tags/Android/"/>
     
-      <category term="自定义控件" scheme="http://itdais.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/"/>
-    
       <category term="SwipeToRefresh" scheme="http://itdais.com/tags/SwipeToRefresh/"/>
     
       <category term="滑动冲突" scheme="http://itdais.com/tags/%E6%BB%91%E5%8A%A8%E5%86%B2%E7%AA%81/"/>
+    
+      <category term="自定义控件" scheme="http://itdais.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/"/>
     
   </entry>
   
